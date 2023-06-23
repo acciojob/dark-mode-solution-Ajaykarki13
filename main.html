@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Dark Mode</title>
+	<style>
+		.switch {
+			position: relative;
+			display: inline-block;
+			width: 60px;
+			height: 34px;
+			margin-top: 20px;
+		}
+
+		.switch input {
+			display: none;
+		}
+
+		.slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #ccc;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		.slider:before {
+			position: absolute;
+			content: "";
+			height: 26px;
+			width: 26px;
+			left: 4px;
+			bottom: 4px;
+			background-color: white;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		body.dark-mode {
+			background: black;
+			color: white;
+		}
+
+		input:checked+.slider {
+			background-color: #2196F3;
+		}
+
+		input:checked+.slider:before {
+			-webkit-transform: translateX(26px);
+			-ms-transform: translateX(26px);
+			transform: translateX(26px);
+		}
+
+		.slider.round {
+			border-radius: 34px;
+		}
+
+		.slider.round:before {
+			border-radius: 50%;
+		}
+	</style>
+</head>
+
+<body onload="toggleDarkMode()">
+	<h1>Dark Mode</h1>
+	<p>Toggle dark mode:</p>
+	<label class="switch">
+		<input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+		<span class="slider round"></span>
+	</label>
+	<script>
+		// Toggle dark mode
+		function toggleDarkMode() {
+			let toggle = document.getElementById("dark-mode-toggle");
+			let body = document.getElementsByTagName("body")[0];
+			if (toggle.checked) {
+				body.classList.add("dark-mode");
+				localStorage.setItem("dark-mode", "true");
+			} else {
+				body.classList.remove("dark-mode");
+				localStorage.setItem("dark-mode", "false");
+			}
+		}
+
+		// Check for previous dark mode setting
+		function checkDarkMode() {
+			let darkMode = localStorage.getItem("dark-mode");
+			if (darkMode && darkMode === "true") {
+				let toggle = document.getElementById("dark-mode-toggle");
+				toggle.checked = true;
+				toggleDarkMode();
+			}
+		}
+
+		checkDarkMode();
+
+	</script>
+</body>
+
+</html>
